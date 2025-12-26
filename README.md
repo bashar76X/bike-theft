@@ -1,73 +1,74 @@
-# React + TypeScript + Vite
+# Bike Theft Reports – Munich
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript application that displays reported bike theft cases in the Munich area using the BikeIndex API.
 
-Currently, two official plugins are available:
+The app focuses on clean architecture, performance, and clear handling of API constraints.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Display a list of reported bike thefts in the Munich area
+* Pagination with 10 cases per page
+* Display total number of theft cases
+* Search cases by title
+* Responsive and modern UI
+* Loading, error, and empty states
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* React
+* TypeScript
+* Vite
+* React Query (TanStack Query)
+* Axios
+* Zustand
+* Tailwind CSS
+* React Router
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## API
+
+Data is fetched from the public **BikeIndex API**:
+
+* `GET /api/v3/search`
+
+The search endpoint is used to retrieve reported stolen bikes based on proximity to Munich.
+
+---
+
+## Limitations & Technical Decisions
+
+### Date range filtering
+
+Date range filtering was intentionally not implemented.
+
+Although the BikeIndex API exposes timestamps such as `date_stolen`, the `/search` endpoint does not reliably support filtering results by date range.
+Implementing client-side filtering would require fetching a large dataset and filtering it locally, which would negatively impact performance and user experience.
+
+---
+
+### Case reported date
+
+The reported date of a theft case is not included in the search response.
+
+While this information can be retrieved via the `/bikes/{id}` endpoint, doing so would require an additional request per bike, resulting in an N+1 request pattern.
+To keep the list performant and efficient, this data was intentionally omitted.
+
+---
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Notes
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+This project was implemented as a technical assignment with an emphasis on code quality, API awareness, and real-world frontend architecture decisions.
