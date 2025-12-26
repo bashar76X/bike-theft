@@ -7,18 +7,21 @@ type BikeCountResponse = {
   stolen: number;
   non: number;
 };
+type Params = {
+  query: string;
+};
 
-const fetchBikesCount = async () => {
+const fetchBikesCount = async (query: string) => {
   const { data } = await bikeApi.get("search/count", {
-    params: { ...apiParams },
+    params: { ...apiParams, query },
   });
 
   return data;
 };
 
-export const useBikesCount = () => {
+export const useBikesCount = ({ query }: Params) => {
   return useQuery<BikeCountResponse>({
-    queryKey: ["bike-count"],
-    queryFn: fetchBikesCount,
+    queryKey: ["bike-count", { ...apiParams, query }],
+    queryFn: () => fetchBikesCount(query),
   });
 };

@@ -28,7 +28,7 @@ function BikeCard({ bike }: Props) {
         )}
       </div>
 
-      <div className="flex-1 space-y-1">
+      <div className="flex-1 space-y-1"> 
         <h3 className="font-semibold text-blue-800 text-xl hover:underline">
           {bike.title}
         </h3>
