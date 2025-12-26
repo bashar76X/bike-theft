@@ -7,6 +7,7 @@ import { useBikesStore } from "../store/useBikesStore";
 import { CiSearch } from "react-icons/ci";
 import { IoIosWarning } from "react-icons/io";
 import { MdError } from "react-icons/md";
+import { GrBike } from "react-icons/gr";
 
 export default function BikesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -45,14 +46,21 @@ export default function BikesPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6 ">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold">
-          🚲 Reported Bike Thefts — Munich ({bikesCount?.proximity})
+        <h1 className="text-2xl font-bold flex items-center gap-2">
+          <GrBike /> Reported Bike Thefts — Munich{" "}
+          <span className="text-blue-700"> ({bikesCount?.proximity})</span>
         </h1>
         <p className="text-gray-600 text-sm">
           Showing stolen bikes reported near Munich
         </p>
+      </div>
+      <div className="mb-6">
+        <h1 className="text-sm ">
+          Reported Bike Thefts — anywhere{" "}
+          <span className="text-blue-700"> ({bikesCount?.stolen})</span>
+        </h1>
       </div>
 
       <div className="mb-6 w-sm flex border rounded-l pl-2 overflow-hidden rounded-r-xl">
@@ -63,12 +71,12 @@ export default function BikesPage() {
             setInputQuery(e.target.value);
           }}
           placeholder="Search bikes..."
-          className=" w-full focus-visible:outline-none"
+          className=" w-full focus-visible:outline-none bg-white"
         />
         <button
           type="button"
           onClick={() => setSearchParams({ page: "1", query: inputQuery })}
-          className="bg-blue-500 text-white p-2"
+          className="bg-blue-800 text-white p-2 cursor-pointer"
         >
           <CiSearch size={20} />
         </button>
@@ -80,7 +88,7 @@ export default function BikesPage() {
       )}
       {data?.bikes.length !== 0 && (
         <div
-          className={`space-y-5 ${
+          className={`space-y-5 columns-2 break-after-avoid ${
             (isPlaceholderData || isLoading) && "opacity-20"
           }`}
         >

@@ -1,3 +1,10 @@
+import {
+  MdKeyboardDoubleArrowLeft,
+  MdKeyboardArrowLeft,
+  MdKeyboardArrowRight,
+  MdKeyboardDoubleArrowRight,
+} from "react-icons/md";
+
 type Props = {
   page: number;
   total: number;
@@ -14,21 +21,38 @@ export default function Pagination({ page, total, onPageChange }: Props) {
       <button
         type="button"
         disabled={page === 1}
-        onClick={() => onPageChange(page - 1)}
-        className="px-4 py-2 rounded bg-gray-200 disabled:opacity-50"
+        onClick={() => onPageChange(1)}
+        className="cursor-pointer p-2 rounded-full bg-gray-200 disabled:opacity-50"
       >
-        Prev
+        <MdKeyboardDoubleArrowLeft size={20} />
       </button>
-      <span className="text-sm">
-        Page {page} of {totalPages}
-      </span>
+      <button
+        type="button"
+        disabled={page === 1}
+        onClick={() => onPageChange(page - 1)}
+        className="cursor-pointer p-2 rounded-full bg-gray-200 disabled:opacity-50"
+      >
+        <MdKeyboardArrowLeft size={20} />
+      </button>
+      <div className="text-sm bg-gray-200 px-8 py-2 rounded-md">
+        Page <span className="font-bold "> {page} </span>
+        of <span className="font-bold "> {totalPages}</span>
+      </div>
       <button
         type="button"
         disabled={page === totalPages}
         onClick={() => onPageChange(page + 1)}
-        className="px-4 py-2 rounded bg-gray-200 disabled:opacity-50"
+        className="cursor-pointer p-2 rounded-full bg-gray-200 disabled:opacity-50"
       >
-        Next
+        <MdKeyboardArrowRight size={20} />
+      </button>
+      <button
+        type="button"
+        disabled={page === totalPages}
+        onClick={() => onPageChange(totalPages)}
+        className="cursor-pointer p-2 rounded-full bg-gray-200 disabled:opacity-50"
+      >
+        <MdKeyboardDoubleArrowRight size={20} />
       </button>
     </div>
   );

@@ -14,9 +14,9 @@ function BikeCard({ bike }: Props) {
       href={bike.url}
       target="_blank"
       rel="noreferrer"
-      className="flex gap-4 bg-white rounded-lg p-4 hover:bg-gray-50 transition border"
+      className="flex gap-4 bg-white rounded-lg p-4 hover:bg-gray-50 transition shadow shadow-black/50"
     >
-      <div className="w-48 h-42 bg-gray-100 rounded flex items-center justify-center shrink-0">
+      <div className="w-42 h-32  bg-gray-100 rounded flex items-center justify-center shrink-0">
         {bike.thumb ? (
           <img
             src={bike.thumb}
@@ -28,11 +28,13 @@ function BikeCard({ bike }: Props) {
         )}
       </div>
 
-      <div className="flex-1 space-y-1"> 
+      <div className="flex-1 space-y-1">
         <h3 className="font-semibold text-blue-800 text-xl hover:underline">
           {bike.title}
         </h3>
-        {bike.description && <p>{bike.description} lorem</p>}
+        {bike.description && (
+          <p className="text-xs line-clamp-4">{bike.description} lorem</p>
+        )}
 
         <p className="text-sm text-gray-600">
           Manufacturer: {bike.manufacturer_name} • {bike.year}
@@ -52,7 +54,7 @@ function BikeCard({ bike }: Props) {
           {bike?.status?.toUpperCase()}
         </span>
 
-        <p className=" flex items-center gap-2">
+        <p className=" flex items-center text-sm gap-2">
           <CiCalendar /> {unixToDate(bike.date_stolen)}
         </p>
       </div>
