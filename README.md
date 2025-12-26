@@ -72,3 +72,5 @@ npm run dev
 ## Notes
 
 This project was implemented as a technical assignment with an emphasis on code quality, API awareness, and real-world frontend architecture decisions.
+
+_Last update: 26-12-2025
